@@ -7,8 +7,8 @@ WINDOW_SIZE = 800
 GRID_SIZE = 8
 CELL = WINDOW_SIZE / GRID_SIZE
 
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+WHITE = (240, 217, 181)
+BLACK = (181, 136, 99)
 screen = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
 clock = pygame.time.Clock()
 running = True
@@ -16,6 +16,22 @@ running = True
 #temporary
 WHITE_PIECE = (255, 0, 0)
 BLACK_PIECE = (0, 0, 255)
+
+piece_images = {
+    10: pygame.image.load("images/white_king.png"),
+    20: pygame.image.load("images/white_queen.png"),
+    30: pygame.image.load("images/white_bishop.png"),
+    40: pygame.image.load("images/white_knight.png"),
+    50: pygame.image.load("images/white_rook.png"),
+    60: pygame.image.load("images/white_pawn.png"),
+     
+    11: pygame.image.load("images/black_king.png"),
+    22: pygame.image.load("images/black_queen.png"),
+    33: pygame.image.load("images/black_bishop.png"),
+    44: pygame.image.load("images/black_knight.png"),
+    55: pygame.image.load("images/black_rook.png"),
+    66: pygame.image.load("images/black_pawn.png")
+}
 
 def draw_grid(board):
     for row in range(GRID_SIZE):
@@ -30,18 +46,11 @@ def draw_grid(board):
             pygame.draw.rect(screen, color, (x, y, CELL, CELL))
 
             piece = board[row][col]
-            #TEMPORARY
-            piece_color = color
 
-            if piece != 0 and piece % 10 == 0:
-                piece_color = WHITE_PIECE
-            elif piece != 0:
-                piece_color = BLACK_PIECE
+            if piece != 0:
+                piece_images[piece] = pygame.transform.scale(piece_images[piece], (CELL, CELL))
+                screen.blit(piece_images[piece], (col * CELL, row * CELL))
 
-            piece_x = x - 2 * CELL/3
-            piece_y = y - 2 * CELL/3
-
-            pygame.draw.rect(screen, piece_color, (piece_x, piece_y,2 * CELL / 3,2 * CELL / 3))
 
 
 while running:
