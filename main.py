@@ -10,8 +10,8 @@ CELL = WINDOW_SIZE / GRID_SIZE
 WHITE = (240, 217, 181)
 BLACK = (181, 136, 99)
 
-SHADED_WHITE = (216, 195, 163)
-SHADED_BLACK = (163, 122, 89)
+SHADED_WHITE = (172, 156, 130)
+SHADED_BLACK = (130, 98, 71)
 screen = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
 clock = pygame.time.Clock()
 running = True
@@ -33,17 +33,23 @@ piece_images = {
     66: pygame.image.load("images/black_pawn.png")
 }
 
-def draw_grid(board, mouse_x, mouse_y):
+def draw_grid(board, selected):
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
             x = col * CELL
             y = row * CELL
-
-            #determine if mouse_x and y belong here
-            
+ 
             color = BLACK
             if (row + col) % 2 == 0:
                 color = WHITE
+
+
+            if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
+                if color == WHITE:
+                    color = SHADED_WHITE
+                else:
+                    color = SHADED_BLACK
+
 
             pygame.draw.rect(screen, color, (x, y, CELL, CELL))
 
@@ -51,9 +57,13 @@ def draw_grid(board, mouse_x, mouse_y):
 
             if piece != 0:
                 piece_images[piece] = pygame.transform.scale(piece_images[piece], (CELL, CELL))
+
+
+
                 screen.blit(piece_images[piece], (col * CELL, row * CELL))
 
 
+selected = (0, 0)
                 
 while running:
     clicked = False
@@ -64,6 +74,7 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x, mouse_y = event.pos
+                selected = (mouse_x, mouse_y)
                 clicked = True
                 print(f"{mouse_x} , {mouse_y}")
 
@@ -77,7 +88,7 @@ while running:
     board[6] = [66 for i in range(8)]
     board[7] = [55,44,33,22,11,33,44,55]
 
-    draw_grid(board, mouse_x, mouse_y)
+    draw_grid(board, selected)
 
     pygame.display.flip()
 
