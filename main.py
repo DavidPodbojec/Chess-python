@@ -1,4 +1,5 @@
 import pygame
+from calculate import calculate
 
 # pygame setup
 pygame.init()
@@ -33,11 +34,15 @@ piece_images = {
     66: pygame.image.load("images/black_pawn.png")
 }
 
+selected_piece = (0, 0)
+
 def draw_grid(board, selected):
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
             x = col * CELL
             y = row * CELL
+
+            piece = board[row][col]
  
             color = BLACK
             if (row + col) % 2 == 0:
@@ -45,15 +50,16 @@ def draw_grid(board, selected):
 
 
             if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
+                
+                selected_piece = (row, col)
+
+                calculate(board, selected_piece)
                 if color == WHITE:
                     color = SHADED_WHITE
                 else:
-                    color = SHADED_BLACK
-
+                    color = SHADED_BLACK            
 
             pygame.draw.rect(screen, color, (x, y, CELL, CELL))
-
-            piece = board[row][col]
 
             if piece != 0:
                 piece_images[piece] = pygame.transform.scale(piece_images[piece], (CELL, CELL))
@@ -76,17 +82,16 @@ while running:
                 mouse_x, mouse_y = event.pos
                 selected = (mouse_x, mouse_y)
                 clicked = True
-                print(f"{mouse_x} , {mouse_y}")
 
     screen.fill("white")
     
     board = [[0 for x in range(8) ] for i in range(8)]
     
-    board[0] = [50,40,30,20,10,30,40,50]
-    board[1] = [60 for i in range(8)]
+    board[0] = [55,44,33,22,11,33,44,55]
+    board[1] = [66 for i in range(8)]
 
-    board[6] = [66 for i in range(8)]
-    board[7] = [55,44,33,22,11,33,44,55]
+    board[6] = [60 for i in range(8)]
+    board[7] = [50,40,30,20,10,30,40,50]
 
     draw_grid(board, selected)
 
