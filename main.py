@@ -49,7 +49,7 @@ def draw_grid(board, selected):
                 color = WHITE
 
 
-            if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
+            if int(board[row][col]) != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
                 
                 selected_piece = (row, col)
 
@@ -60,13 +60,15 @@ def draw_grid(board, selected):
                     color = SHADED_BLACK            
 
             pygame.draw.rect(screen, color, (x, y, CELL, CELL))
-
-            if piece != 0:
+            
+            if int(piece) != 0:
                 piece_images[piece] = pygame.transform.scale(piece_images[piece], (CELL, CELL))
 
-
-
                 screen.blit(piece_images[piece], (col * CELL, row * CELL))
+
+            if isinstance(piece, str):
+                pygame.draw.circle(screen, (0,0,0), ((selected_piece[0]*CELL+CELL)/2, (selected_piece[1]*CELL+CELL)/2), 20)
+
 
 
 selected = (0, 0)
