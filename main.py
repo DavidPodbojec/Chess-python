@@ -35,7 +35,10 @@ piece_images = {
 
 selected_piece = (0, 0)
 
+possible_moves = []
+
 def draw_grid(board, selected):
+    global possible_moves
     
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
@@ -51,9 +54,11 @@ def draw_grid(board, selected):
 
             if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
                 
+                #selected = (y, x)
                 selected_piece = (row, col)
 
-                calculate(board, selected_piece)
+                possible_moves = calculate(board, selected_piece)
+                print(possible_moves)
 
                 if color == WHITE:
                     color = SHADED_WHITE
@@ -66,6 +71,10 @@ def draw_grid(board, selected):
                 piece_images[piece] = pygame.transform.scale(piece_images[piece], (CELL, CELL))
 
                 screen.blit(piece_images[piece], (col * CELL, row * CELL))
+            
+            
+            if [row, col] in possible_moves:
+                pygame.draw.circle(screen, (0, 0, 0), ((col * CELL)-(CELL/2), (row * CELL)-(CELL/2)), 20)
 
             
 
