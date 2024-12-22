@@ -1,7 +1,6 @@
 import pygame
 from calculate import calculate
 
-# pygame setup
 pygame.init()
 
 WINDOW_SIZE = 800
@@ -37,6 +36,7 @@ piece_images = {
 selected_piece = (0, 0)
 
 def draw_grid(board, selected):
+    
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
             x = col * CELL
@@ -49,11 +49,12 @@ def draw_grid(board, selected):
                 color = WHITE
 
 
-            if int(board[row][col]) != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
+            if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
                 
                 selected_piece = (row, col)
 
                 calculate(board, selected_piece)
+
                 if color == WHITE:
                     color = SHADED_WHITE
                 else:
@@ -61,17 +62,24 @@ def draw_grid(board, selected):
 
             pygame.draw.rect(screen, color, (x, y, CELL, CELL))
             
-            if int(piece) != 0:
+            if piece != 0:
                 piece_images[piece] = pygame.transform.scale(piece_images[piece], (CELL, CELL))
 
                 screen.blit(piece_images[piece], (col * CELL, row * CELL))
 
-            if isinstance(piece, str):
-                pygame.draw.circle(screen, (0,0,0), ((selected_piece[0]*CELL+CELL)/2, (selected_piece[1]*CELL+CELL)/2), 20)
+            
 
 
 
 selected = (0, 0)
+
+board = [[0 for x in range(8) ] for i in range(8)]
+    
+board[0] = [55,44,33,22,11,33,44,55]
+board[1] = [66 for i in range(8)]
+
+board[6] = [60 for i in range(8)]
+board[7] = [50,40,30,20,10,30,40,50]
                 
 while running:
     clicked = False
@@ -86,14 +94,6 @@ while running:
                 clicked = True
 
     screen.fill("white")
-    
-    board = [[0 for x in range(8) ] for i in range(8)]
-    
-    board[0] = [55,44,33,22,11,33,44,55]
-    board[1] = [66 for i in range(8)]
-
-    board[6] = [60 for i in range(8)]
-    board[7] = [50,40,30,20,10,30,40,50]
 
     draw_grid(board, selected)
 
