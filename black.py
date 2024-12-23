@@ -1,7 +1,12 @@
 def black_move(board, selected_piece):
-    print(selected_piece)
+    possible_moves = []
+    
     def pawn_move():
-        print("black pawn")
+        if board[selected_piece[0]+1][selected_piece[1]] == 0:
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]])
+            
+        if selected_piece[0] == 1 and board[selected_piece[0]+2][selected_piece[1]] == 0:
+            possible_moves.append([selected_piece[0]+2, selected_piece[1]])
     
     def knight_move():
         print("black knight")
@@ -33,3 +38,5 @@ def black_move(board, selected_piece):
         rook_move()
     elif piece == 66:
         pawn_move()
+        
+    return possible_moves

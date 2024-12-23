@@ -1,11 +1,12 @@
 def white_move(board, selected_piece):
     possible_moves = []
-    print(selected_piece)
     
     def pawn_move():
         if board[selected_piece[0]-1][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]-1, selected_piece[1]])
-            print(possible_moves)
+            
+        if selected_piece[0] == 6 and board[selected_piece[0]-2][selected_piece[1]] == 0:
+            possible_moves.append([selected_piece[0]-2, selected_piece[1]])
     
     def rook_move():
         print("white rook")

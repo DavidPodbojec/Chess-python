@@ -16,6 +16,11 @@ screen = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
 clock = pygame.time.Clock()
 running = True
 
+WHITE_TURN = 0
+BLACK_TURN = 1
+
+TURN = WHITE_TURN
+
 
 piece_images = {
     10: pygame.image.load("images/white_king.png"),
@@ -26,15 +31,15 @@ piece_images = {
     60: pygame.image.load("images/white_pawn.png"),
      
     11: pygame.image.load("images/black_king.png"),
-    22: pygame.image.load("images/black_queen.png"),
-    33: pygame.image.load("images/black_bishop.png"),
-    44: pygame.image.load("images/black_knight.png"),
-    55: pygame.image.load("images/black_rook.png"),
-    66: pygame.image.load("images/black_pawn.png")
+    21: pygame.image.load("images/black_queen.png"),
+    31: pygame.image.load("images/black_bishop.png"),
+    41: pygame.image.load("images/black_knight.png"),
+    51: pygame.image.load("images/black_rook.png"),
+    61: pygame.image.load("images/black_pawn.png")
 }
 
 selected_piece = (0, 0)
-
+selected_square = (0, 0)
 possible_moves = []
 
 def draw_grid(board, selected):
@@ -50,15 +55,20 @@ def draw_grid(board, selected):
             color = BLACK
             if (row + col) % 2 == 0:
                 color = WHITE
-
-
+                
+            if (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100) and board[row][col] != 0:
+                selected_square = (row, col)
+                print(selected_square)                
+            
+                
             if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
                 
                 #selected = (y, x)
                 selected_piece = (row, col)
-
-                possible_moves = calculate(board, selected_piece)
-                print(possible_moves)
+                selected_square = (row, col)
+                print(selected_piece)
+                if piece % 10 == TURN:
+                    possible_moves = calculate(board, selected_piece)
 
                 if color == WHITE:
                     color = SHADED_WHITE
@@ -74,7 +84,9 @@ def draw_grid(board, selected):
             
             
             if [row, col] in possible_moves:
-                pygame.draw.circle(screen, (0, 0, 0), ((col * CELL)-(CELL/2), (row * CELL)-(CELL/2)), 20)
+                pygame.draw.circle(screen, (80, 80, 80), ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)
+                
+            
 
             
 
@@ -84,8 +96,8 @@ selected = (0, 0)
 
 board = [[0 for x in range(8) ] for i in range(8)]
     
-board[0] = [55,44,33,22,11,33,44,55]
-board[1] = [66 for i in range(8)]
+board[0] = [51,41,31,21,11,31,41,51]
+board[1] = [61 for i in range(8)]
 
 board[6] = [60 for i in range(8)]
 board[7] = [50,40,30,20,10,30,40,50]
