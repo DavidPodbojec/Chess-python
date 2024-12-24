@@ -60,40 +60,43 @@ def draw_grid(board, selected):
             color = BLACK   
             if (row + col) % 2 == 0:
                 color = WHITE
-                
             
-            #work on this
-            if (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100) and board[row][col] == 0:
-                selected_square = (row, col)
-                
-                if is_piece_selected:
-                    
-                    if [selected_square[0], selected_square[1]] in possible_moves:
-                        board = move(board, selected_piece, selected_square, TURN)
-                        
-                        if TURN == 0:
-                            TURN = 1
-                        else:
-                            TURN = 0
-                        is_piece_selected = False
-                        
-                        possible_moves = []        
-            
-                
             if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
                 
                 #selected = (y, x)
-                selected_piece = (row, col)
-                selected_square = (row, col)
                 
                 if piece % 10 == TURN:
+                    selected_piece = (row, col)
                     possible_moves = calculate(board, selected_piece)
                     is_piece_selected = True
 
                 if color == WHITE:
                     color = SHADED_WHITE
                 else:
-                    color = SHADED_BLACK            
+                    color = SHADED_BLACK 
+            
+            #work on this
+            if (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
+                selected_square = (row, col)
+                
+                if is_piece_selected and board[selected_piece[0]][selected_piece[1]] % 10 == TURN:
+                    
+                    if [selected_square[0], selected_square[1]] in possible_moves:
+                        board = move(board, selected_piece, selected_square, TURN)
+                        possible_moves = []
+                        
+                        if TURN == 0:
+                            TURN = 1
+                        else:
+                            TURN = 0
+                            
+                        is_piece_selected = False   
+            
+                
+                 
+                    
+                    
+                          
 
             pygame.draw.rect(screen, color, (x, y, CELL, CELL))
             

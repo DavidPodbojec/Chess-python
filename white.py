@@ -7,6 +7,9 @@ def white_possible_moves(board, selected_piece):
             
         if selected_piece[0] == 6 and board[selected_piece[0]-2][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]-2, selected_piece[1]])
+            
+        if board[selected_piece[0]-1][selected_piece[1]+1] % 10 != 0:
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]+1])
     
     def rook_move():
         print("white rook")
