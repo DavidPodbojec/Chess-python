@@ -1,4 +1,4 @@
-def black_move(board, selected_piece):
+def black_possible_moves(board, selected_piece):
     possible_moves = []
     
     def pawn_move():
@@ -28,15 +28,15 @@ def black_move(board, selected_piece):
 
     if piece == 11:
         king_move()
-    elif piece == 22:
+    elif piece == 21:
         queen_move()
-    elif piece == 33:
+    elif piece == 31:
         bishop_move()
-    elif piece == 44:
+    elif piece == 41:
         knight_move()
-    elif piece == 55:
+    elif piece == 51:
         rook_move()
-    elif piece == 66:
+    elif piece == 61:
         pawn_move()
         
     return possible_moves

@@ -1,5 +1,5 @@
 import pygame
-from calculate import calculate
+from calculate import calculate, move
 
 pygame.init()
 
@@ -42,8 +42,12 @@ selected_piece = (0, 0)
 selected_square = (0, 0)
 possible_moves = []
 
+is_piece_selected = False
+
 def draw_grid(board, selected):
     global possible_moves
+    global is_piece_selected
+    global selected_piece
     
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
@@ -56,9 +60,15 @@ def draw_grid(board, selected):
             if (row + col) % 2 == 0:
                 color = WHITE
                 
-            if (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100) and board[row][col] != 0:
+            
+            #work on this
+            if (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100) and board[row][col] == 0:
                 selected_square = (row, col)
-                print(selected_square)                
+                
+                if is_piece_selected:
+                    
+                    if [selected_square[0], selected_square[1]] in possible_moves:
+                        move(board, selected_piece, selected_square, TURN)           
             
                 
             if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
@@ -69,6 +79,7 @@ def draw_grid(board, selected):
                 print(selected_piece)
                 if piece % 10 == TURN:
                     possible_moves = calculate(board, selected_piece)
+                    is_piece_selected = True
 
                 if color == WHITE:
                     color = SHADED_WHITE

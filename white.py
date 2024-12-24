@@ -1,4 +1,4 @@
-def white_move(board, selected_piece):
+def white_possible_moves(board, selected_piece):
     possible_moves = []
     
     def pawn_move():
