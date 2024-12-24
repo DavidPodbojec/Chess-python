@@ -2,14 +2,19 @@ def white_possible_moves(board, selected_piece):
     possible_moves = []
     
     def pawn_move():
+        #pawn moves and takes
         if board[selected_piece[0]-1][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]-1, selected_piece[1]])
             
         if selected_piece[0] == 6 and board[selected_piece[0]-2][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]-2, selected_piece[1]])
             
-        if board[selected_piece[0]-1][selected_piece[1]+1] % 10 != 0:
+        if selected_piece[1] != 7 and board[selected_piece[0]-1][selected_piece[1]+1] % 10 != 0:
             possible_moves.append([selected_piece[0]-1, selected_piece[1]+1])
+            
+        if selected_piece[1] != 0 and board[selected_piece[0]-1][selected_piece[1]-1] % 10 != 0:
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]-1])
+            
     
     def rook_move():
         print("white rook")
@@ -45,6 +50,7 @@ def white_possible_moves(board, selected_piece):
     return possible_moves
 
 def white_move(board, selected_piece, selected_square):
+    #change the square of selected piece with selected square
     piece = board[selected_piece[0]][selected_piece[1]]
     
     board[selected_piece[0]][selected_piece[1]] = 0

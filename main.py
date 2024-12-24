@@ -69,11 +69,13 @@ def draw_grid(board, selected):
                     selected_piece = (row, col)
                     possible_moves = calculate(board, selected_piece)
                     is_piece_selected = True
+                    
+                    if color == WHITE:
+                        color = SHADED_WHITE
+                    else:
+                        color = SHADED_BLACK
 
-                if color == WHITE:
-                    color = SHADED_WHITE
-                else:
-                    color = SHADED_BLACK 
+                 
             
             #work on this
             if (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
