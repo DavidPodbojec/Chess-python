@@ -48,6 +48,7 @@ def draw_grid(board, selected):
     global possible_moves
     global is_piece_selected
     global selected_piece
+    global TURN
     
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
@@ -56,7 +57,7 @@ def draw_grid(board, selected):
 
             piece = board[row][col]
  
-            color = BLACK
+            color = BLACK   
             if (row + col) % 2 == 0:
                 color = WHITE
                 
@@ -68,7 +69,15 @@ def draw_grid(board, selected):
                 if is_piece_selected:
                     
                     if [selected_square[0], selected_square[1]] in possible_moves:
-                        move(board, selected_piece, selected_square, TURN)           
+                        board = move(board, selected_piece, selected_square, TURN)
+                        
+                        if TURN == 0:
+                            TURN = 1
+                        else:
+                            TURN = 0
+                        is_piece_selected = False
+                        
+                        possible_moves = []        
             
                 
             if board[row][col] != 0 and (col * 100) < selected[0] < ((col+1) * 100) and (row * 100) < selected[1] < ((row + 1) * 100):
@@ -76,7 +85,7 @@ def draw_grid(board, selected):
                 #selected = (y, x)
                 selected_piece = (row, col)
                 selected_square = (row, col)
-                print(selected_piece)
+                
                 if piece % 10 == TURN:
                     possible_moves = calculate(board, selected_piece)
                     is_piece_selected = True
@@ -114,7 +123,7 @@ board[6] = [60 for i in range(8)]
 board[7] = [50,40,30,20,10,30,40,50]
                 
 while running:
-    clicked = False
+    
     mouse_x, mouse_y = 0, 0
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -123,7 +132,7 @@ while running:
             if event.button == 1:
                 mouse_x, mouse_y = event.pos
                 selected = (mouse_x, mouse_y)
-                clicked = True
+                
 
     screen.fill("white")
 

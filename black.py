@@ -40,3 +40,10 @@ def black_possible_moves(board, selected_piece):
         pawn_move()
         
     return possible_moves
+
+def black_move(board, selected_piece, selected_square):
+    piece = board[selected_piece[0]][selected_piece[1]]
+    
+    board[selected_piece[0]][selected_piece[1]] = 0
+    board[selected_square[0]][selected_square[1]] = piece
+    return board

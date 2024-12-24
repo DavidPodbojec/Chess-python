@@ -1,5 +1,5 @@
-from white import white_possible_moves
-from black import black_possible_moves
+from white import white_possible_moves, white_move
+from black import black_possible_moves, black_move
 
 def calculate(board, selected_piece):
     possible_moves = []
@@ -14,6 +14,8 @@ def calculate(board, selected_piece):
 
 def move(board, selected_piece, selected_square, turn):
     if turn % 10 == 0:
-        print("hello there white")
+        white_move(board, selected_piece, selected_square)
     else:
-        print("hello there black")
+        black_move(board, selected_piece, selected_square)
+        
+    return board
