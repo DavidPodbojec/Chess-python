@@ -109,7 +109,7 @@ def draw_grid(board, selected):
             
             
             if [row, col] in possible_moves:
-                pygame.draw.circle(screen, (80, 80, 80), ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)
+                pygame.draw.circle(screen, (200, 170, 120), ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)
                 
             
 
