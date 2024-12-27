@@ -95,7 +95,6 @@ def draw_grid(board, selected):
                         is_piece_selected = False   
             
                 
-                 
                     
                     
                           
@@ -109,7 +108,13 @@ def draw_grid(board, selected):
             
             
             if [row, col] in possible_moves:
-                pygame.draw.circle(screen, (200, 170, 120), ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)
+                color = SHADED_BLACK
+                if (row + col) % 2 == 0:
+                    color = SHADED_WHITE
+                
+                pygame.draw.circle(screen, color, ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)
+                
+                    
                 
             
 
