@@ -2,25 +2,106 @@ def white_possible_moves(board, selected_piece):
     possible_moves = []
     
     def pawn_move():
-        #pawn moves and takes
+        #move one up
         if board[selected_piece[0]-1][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]-1, selected_piece[1]])
             
+        #move two up
         if selected_piece[0] == 6 and board[selected_piece[0]-2][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]-2, selected_piece[1]])
             
+        #take right
         if selected_piece[1] != 7 and board[selected_piece[0]-1][selected_piece[1]+1] % 10 != 0:
             possible_moves.append([selected_piece[0]-1, selected_piece[1]+1])
             
+        #take left
         if selected_piece[1] != 0 and board[selected_piece[0]-1][selected_piece[1]-1] % 10 != 0:
             possible_moves.append([selected_piece[0]-1, selected_piece[1]-1])
             
     
     def rook_move():
-        print("white rook")
+        #down
+        count = 8 - selected_piece[0]
+        
+        for i in range(1, count):
+            
+            if board[selected_piece[0]+i][selected_piece[1]] % 10 != 0 and board[selected_piece[0]+i][selected_piece[1]] != 0:
+                possible_moves.append([selected_piece[0]+i, selected_piece[1]])                
+                break
+            
+            elif board[selected_piece[0]+i][selected_piece[1]] == 0:
+                possible_moves.append([selected_piece[0]+i, selected_piece[1]])
+            
+            else:
+                break
+            
+        
+        #up        
+        for i in range(1, selected_piece[0]+1):
+            if board[selected_piece[0]-i][selected_piece[1]] % 10 != 0 and board[selected_piece[0]-i][selected_piece[1]] != 0:
+                possible_moves.append([selected_piece[0]-i, selected_piece[1]])
+                
+                break
+            elif board[selected_piece[0]-i][selected_piece[1]] == 0:
+                possible_moves.append([selected_piece[0]-i, selected_piece[1]])
+            
+            else:
+                break
+            
+        #left 
+        for i in range(1, selected_piece[1]+1):
+            if board[selected_piece[0]][selected_piece[1]-i] % 10 != 0 and board[selected_piece[0]][selected_piece[1]-i] != 0:
+                possible_moves.append([selected_piece[0], selected_piece[1]-i])
+                break
+            elif board[selected_piece[0]][selected_piece[1]-i] == 0:
+                possible_moves.append([selected_piece[0], selected_piece[1]-i])
+            else:
+                break
+            
+        #right
+        for i in range(1, 8-selected_piece[1]):
+            
+            if board[selected_piece[0]][selected_piece[1]+i] % 10 != 0 and board[selected_piece[0]][selected_piece[1]+i] != 0:
+                possible_moves.append([selected_piece[0], selected_piece[1]-+i])
+                break
+            elif board[selected_piece[0]][selected_piece[1]+i] == 0:
+                possible_moves.append([selected_piece[0], selected_piece[1]+i])
+            else:
+                break
+            
     
     def knight_move():
-        print("white knight")
+        #down left
+        if selected_piece[0] <= 5 and selected_piece[1] >= 1 and (board[selected_piece[0]+2][selected_piece[1]-1] % 10 != 0 or board[selected_piece[0]+2][selected_piece[1]-1] == 0):
+            possible_moves.append([selected_piece[0]+2, selected_piece[1]-1]) 
+            
+        #down right
+        if selected_piece[0] <= 5 and selected_piece[1] <= 6 and (board[selected_piece[0]+2][selected_piece[1]+1] % 10 != 0 or board[selected_piece[0]+2][selected_piece[1]+1] == 0):
+            possible_moves.append([selected_piece[0]+2, selected_piece[1]+1]) 
+            
+        #left up
+        if selected_piece[0] >= 1 and selected_piece[1] >= 2 and (board[selected_piece[0]-1][selected_piece[1]-2] % 10 != 0 or board[selected_piece[0]-1][selected_piece[1]-2] == 0):
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]-2])
+            
+        #left down
+        if selected_piece[0] <= 6 and selected_piece[1] >= 2 and (board[selected_piece[0]+1][selected_piece[1]-2] % 10 != 0 or board[selected_piece[0]+1][selected_piece[1]-2] == 0):
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]-2])
+            
+        #right up
+        if selected_piece[0] >= 1 and selected_piece[1] <= 5 and (board[selected_piece[0]-1][selected_piece[1]+2] % 10 != 0 or board[selected_piece[0]-1][selected_piece[1]+2] == 0):
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]+2])
+            
+        #right down
+        if selected_piece[0] <= 6 and selected_piece[1] <= 5 and (board[selected_piece[0]+1][selected_piece[1]+2] % 10 != 0 or board[selected_piece[0]+1][selected_piece[1]+2] == 0):
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]+2])
+            
+        #up left
+        if selected_piece[0] >= 2 and selected_piece[1] >= 1 and (board[selected_piece[0]-2][selected_piece[1]-1] % 10 != 0 or board[selected_piece[0]-2][selected_piece[1]-1] == 0):
+            possible_moves.append([selected_piece[0]-2, selected_piece[1]-1])
+            
+        #up right 
+        if selected_piece[0] >= 2 and selected_piece[1] <= 6 and (board[selected_piece[0]-2][selected_piece[1]+1] % 10 != 0 or board[selected_piece[0]-2][selected_piece[1]+1] == 0):
+            possible_moves.append([selected_piece[0]-2, selected_piece[1]+1])
     
     def bishop_move():
         print("white bishop")
@@ -29,9 +110,38 @@ def white_possible_moves(board, selected_piece):
         print("white queen")
     
     def king_move():
-        print("white king")
-    
-    
+        #down
+        if selected_piece[0] != 7 and (board[selected_piece[0]+1][selected_piece[1]] % 10 != 0 or board[selected_piece[0]+1][selected_piece[1]] == 0):
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]]) 
+        
+        #up
+        if selected_piece[0] != 0 and (board[selected_piece[0]-1][selected_piece[1]] % 10 != 0 or board[selected_piece[0]-1][selected_piece[1]] == 0):
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]])
+        
+        #left
+        if selected_piece[1] != 0 and (board[selected_piece[0]][selected_piece[1]-1] % 10 != 0 or board[selected_piece[0]][selected_piece[1]-1] == 0):
+            possible_moves.append([selected_piece[0], selected_piece[1]-1])
+        
+        #right            
+        if selected_piece[1] != 7 and (board[selected_piece[0]][selected_piece[1]+1] % 10 != 0 or board[selected_piece[0]][selected_piece[1]+1] == 0):
+            possible_moves.append([selected_piece[0], selected_piece[1]+1])
+            
+        #down left
+        if selected_piece[0] != 7 and selected_piece[1] != 0 and (board[selected_piece[0]+1][selected_piece[1]-1] % 10 != 0 or board[selected_piece[0]+1][selected_piece[1]-1] == 0):
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]-1])
+            
+        #down right
+        if selected_piece[0] != 7 and selected_piece[1] != 7 and (board[selected_piece[0]+1][selected_piece[1]+1] % 10 != 0 or board[selected_piece[0]+1][selected_piece[1]+1] == 0):
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]+1])
+            
+        #up left
+        if selected_piece[0] != 0 and selected_piece[1] != 0 and (board[selected_piece[0]-1][selected_piece[1]-1] % 10 != 0 or board[selected_piece[0]-1][selected_piece[1]-1] == 0):
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]-1])
+            
+        #up right
+        if selected_piece[0] != 0 and selected_piece[1] != 7 and (board[selected_piece[0]-1][selected_piece[1]+1] % 10 != 0 or board[selected_piece[0]-1][selected_piece[1]+1] == 0):
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]+1])
+               
     piece = board[selected_piece[0]][selected_piece[1]]
     
     if piece == 10:

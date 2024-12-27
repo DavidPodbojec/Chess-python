@@ -111,7 +111,37 @@ def black_possible_moves(board, selected_piece):
         print("black queen")
     
     def king_move():
-        print("black king")
+        #down
+        if selected_piece[0] != 7 and board[selected_piece[0]+1][selected_piece[1]] % 10 == 0:
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]]) 
+        
+        #up
+        if selected_piece[0] != 0 and board[selected_piece[0]-1][selected_piece[1]] % 10 == 0:
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]])
+        
+        #left
+        if selected_piece[1] != 0 and board[selected_piece[0]][selected_piece[1]-1] % 10 == 0:
+            possible_moves.append([selected_piece[0], selected_piece[1]-1])
+        
+        #right            
+        if selected_piece[1] != 7 and board[selected_piece[0]][selected_piece[1]+1] % 10 == 0:
+            possible_moves.append([selected_piece[0], selected_piece[1]+1])
+            
+        #down left
+        if selected_piece[0] != 7 and selected_piece[1] != 0 and board[selected_piece[0]+1][selected_piece[1]-1] % 10 == 0:
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]-1])
+            
+        #down right
+        if selected_piece[0] != 7 and selected_piece[1] != 7 and board[selected_piece[0]+1][selected_piece[1]+1] % 10 == 0:
+            possible_moves.append([selected_piece[0]+1, selected_piece[1]+1])
+            
+        #up left
+        if selected_piece[0] != 0 and selected_piece[1] != 0 and board[selected_piece[0]-1][selected_piece[1]-1] % 10 == 0:
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]-1])
+            
+        #up right
+        if selected_piece[0] != 0 and selected_piece[1] != 7 and board[selected_piece[0]-1][selected_piece[1]+1] % 10 == 0:
+            possible_moves.append([selected_piece[0]-1, selected_piece[1]+1])
     
 
     piece = board[selected_piece[0]][selected_piece[1]]
