@@ -1,7 +1,7 @@
 def black_possible_moves(board, selected_piece):
     possible_moves = []
     
-    def pawn_move():
+    def black_pawn_move():
         #pawn one move up
         if board[selected_piece[0]+1][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]+1, selected_piece[1]])
@@ -18,7 +18,7 @@ def black_possible_moves(board, selected_piece):
         if  selected_piece[1] != 0 and board[selected_piece[0]+1][selected_piece[1]-1] != 0 and board[selected_piece[0]+1][selected_piece[1]-1] % 10 == 0:
             possible_moves.append([selected_piece[0]+1, selected_piece[1]-1]) 
     
-    def knight_move():
+    def black_knight_move():
         #down left
         if selected_piece[0] <= 5 and selected_piece[1] >= 1 and board[selected_piece[0]+2][selected_piece[1]-1] % 10 == 0:
             possible_moves.append([selected_piece[0]+2, selected_piece[1]-1]) 
@@ -52,7 +52,7 @@ def black_possible_moves(board, selected_piece):
             possible_moves.append([selected_piece[0]-2, selected_piece[1]+1])
         
     
-    def rook_move():
+    def black_rook_move():
         #down
         count = 8 - selected_piece[0]
         
@@ -104,7 +104,7 @@ def black_possible_moves(board, selected_piece):
             
             
     
-    def bishop_move():
+    def black_bishop_move():
         #down left
         if selected_piece[0] != 7 and selected_piece[1] != 0:
             count = 2
@@ -173,7 +173,7 @@ def black_possible_moves(board, selected_piece):
                 else:
                     break
     
-    def queen_move():
+    def black_queen_move():
         #down
         count = 8 - selected_piece[0]
         
@@ -292,7 +292,7 @@ def black_possible_moves(board, selected_piece):
                     break
         
     
-    def king_move():
+    def black_king_move():
         #down
         if selected_piece[0] != 7 and board[selected_piece[0]+1][selected_piece[1]] % 10 == 0:
             possible_moves.append([selected_piece[0]+1, selected_piece[1]]) 
@@ -328,18 +328,27 @@ def black_possible_moves(board, selected_piece):
 
     piece = board[selected_piece[0]][selected_piece[1]]
 
+    #check if pin
+    king_position = (0, 0)
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == 11:
+                king_position = (row, col)
+                
+    
+
     if piece == 11:
-        king_move()
+        black_king_move()
     elif piece == 21:
-        queen_move()
+        black_queen_move()
     elif piece == 31:
-        bishop_move()
+        black_bishop_move()
     elif piece == 41:
-        knight_move()
+        black_knight_move()
     elif piece == 51:
-        rook_move()
+        black_rook_move()
     elif piece == 61:
-        pawn_move()
+        black_pawn_move()
         
     return possible_moves
 

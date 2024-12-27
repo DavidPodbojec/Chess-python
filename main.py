@@ -111,16 +111,15 @@ def draw_grid(board, selected):
                 color = SHADED_BLACK
                 if (row + col) % 2 == 0:
                     color = SHADED_WHITE
-                
-                pygame.draw.circle(screen, color, ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)
+                    
+                #if opposite is to be captured
+                if board[row][col] != 0 and board[row][col] != TURN:
+                    pygame.draw.circle(screen, color, ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), CELL/2, 10)
+                else:
+                    pygame.draw.circle(screen, color, ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)
                 
                     
                 
-            
-
-            
-
-
 
 selected = (0, 0)
 

@@ -9,6 +9,8 @@ def calculate(board, selected_piece):
         possible_moves = white_possible_moves(board, selected_piece)
     elif piece != 0:
         possible_moves = black_possible_moves(board, selected_piece)
+        
+        
 
     return possible_moves
 

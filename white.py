@@ -1,7 +1,7 @@
 def white_possible_moves(board, selected_piece):
     possible_moves = []
     
-    def pawn_move():
+    def white_pawn_move():
         #move one up
         if board[selected_piece[0]-1][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]-1, selected_piece[1]])
@@ -19,7 +19,7 @@ def white_possible_moves(board, selected_piece):
             possible_moves.append([selected_piece[0]-1, selected_piece[1]-1])
             
     
-    def rook_move():
+    def white_rook_move():
         #down
         count = 8 - selected_piece[0]
         
@@ -70,7 +70,7 @@ def white_possible_moves(board, selected_piece):
                 break
             
     
-    def knight_move():
+    def white_knight_move():
         #down left
         if selected_piece[0] <= 5 and selected_piece[1] >= 1 and (board[selected_piece[0]+2][selected_piece[1]-1] % 10 != 0 or board[selected_piece[0]+2][selected_piece[1]-1] == 0):
             possible_moves.append([selected_piece[0]+2, selected_piece[1]-1]) 
@@ -103,7 +103,7 @@ def white_possible_moves(board, selected_piece):
         if selected_piece[0] >= 2 and selected_piece[1] <= 6 and (board[selected_piece[0]-2][selected_piece[1]+1] % 10 != 0 or board[selected_piece[0]-2][selected_piece[1]+1] == 0):
             possible_moves.append([selected_piece[0]-2, selected_piece[1]+1])
     
-    def bishop_move():
+    def white_bishop_move():
         #down left
         if selected_piece[0] != 7 and selected_piece[1] != 0:
             count = 2
@@ -173,7 +173,7 @@ def white_possible_moves(board, selected_piece):
                     break
             
     
-    def queen_move():
+    def white_queen_move():
         #down
         count = 8 - selected_piece[0]
         
@@ -291,7 +291,7 @@ def white_possible_moves(board, selected_piece):
                 else:
                     break
     
-    def king_move():
+    def white_king_move():
         #down
         if selected_piece[0] != 7 and (board[selected_piece[0]+1][selected_piece[1]] % 10 != 0 or board[selected_piece[0]+1][selected_piece[1]] == 0):
             possible_moves.append([selected_piece[0]+1, selected_piece[1]]) 
@@ -327,17 +327,17 @@ def white_possible_moves(board, selected_piece):
     piece = board[selected_piece[0]][selected_piece[1]]
     
     if piece == 10:
-        king_move()
+        white_king_move()
     elif piece == 20:
-        queen_move()
+        white_queen_move()
     elif piece == 30:
-        bishop_move()
+        white_bishop_move()
     elif piece == 40:
-        knight_move()
+        white_knight_move()
     elif piece == 50:
-        rook_move()
+        white_rook_move()
     elif piece == 60:
-        pawn_move()
+        white_pawn_move()
     
     return possible_moves
 
