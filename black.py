@@ -1,3 +1,5 @@
+from black_king import is_check
+
 def black_possible_moves(board, selected_piece):
     possible_moves = []
     
@@ -327,13 +329,6 @@ def black_possible_moves(board, selected_piece):
     
 
     piece = board[selected_piece[0]][selected_piece[1]]
-
-    #check if pin
-    king_position = (0, 0)
-    for row in range(len(board)):
-        for col in range(len(board[row])):
-            if board[row][col] == 11:
-                king_position = (row, col)
                 
     
 
@@ -349,6 +344,27 @@ def black_possible_moves(board, selected_piece):
         black_rook_move()
     elif piece == 61:
         black_pawn_move()
+        
+    #check if pin
+    king_position = [0, 0]
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == 11:
+                king_position = [row, col]
+                
+    if is_check(board, king_position):
+        
+        new_possible_moves = []
+        for move in possible_moves:
+            temp_board = board
+            #fix this bug - black shouldn't move automatically
+            temp_board = black_move(temp_board, selected_piece, (move[0], move[1]))
+            """
+            if is_check(temp_board, king_position) == False:
+                print(move)
+                new_possible_moves.append(move)
+            """
+        return new_possible_moves
         
     return possible_moves
 
