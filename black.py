@@ -1,4 +1,5 @@
 from black_king import is_check
+import copy
 
 def black_possible_moves(board, selected_piece):
     possible_moves = []
@@ -356,14 +357,19 @@ def black_possible_moves(board, selected_piece):
         
         new_possible_moves = []
         for move in possible_moves:
-            temp_board = board
-            #fix this bug - black shouldn't move automatically
+            temp_board = copy.deepcopy(board)
+            
             temp_board = black_move(temp_board, selected_piece, (move[0], move[1]))
-            """
-            if is_check(temp_board, king_position) == False:
-                print(move)
+
+            if piece == 11:
+                for king_move in possible_moves:
+                    if is_check(temp_board, king_move) == False:
+                        new_possible_moves.append(king_move)
+            
+            elif is_check(temp_board, king_position) == False:
+                
                 new_possible_moves.append(move)
-            """
+            
         return new_possible_moves
         
     return possible_moves
