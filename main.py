@@ -1,4 +1,5 @@
 import pygame
+import time
 from calculate import calculate, move, white_is_checkmate, black_is_checkmate
 
 pygame.init()
@@ -48,10 +49,9 @@ def checkmate(turn):
     font_size = 64
     font = pygame.font.SysFont(None, font_size)
     text = "WHITE lost" if turn == WHITE_TURN else "BLACK lost"
-    text_surface = font.render(text, True, BLACK)
+    text_surface = font.render(text, True, (0, 0, 0))
     text_rect = text_surface.get_rect(center=(WINDOW_SIZE // 2, WINDOW_SIZE // 2))
-
-    screen.fill(WHITE)
+    
     screen.blit(text_surface, text_rect)
     pygame.display.flip()
     pygame.time.wait(3000)
@@ -63,7 +63,9 @@ def draw_grid(board, selected):
     global is_piece_selected
     global selected_piece
     global TURN
+    global is_checkmate
     
+    is_checkmate = False
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
             x = col * CELL
@@ -124,9 +126,6 @@ def draw_grid(board, selected):
                         if white_is_checkmate(board, white_king_position):
                             is_checkmate = True
                             
-                        if is_checkmate:
-                            checkmate(TURN)
-                            
                         is_piece_selected = False   
             
                 
@@ -151,10 +150,9 @@ def draw_grid(board, selected):
                 if board[row][col] != 0 and board[row][col] != TURN:
                     pygame.draw.circle(screen, color, ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), CELL/2, 10)
                 else:
-                    pygame.draw.circle(screen, color, ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)
-                
+                    pygame.draw.circle(screen, color, ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)          
                     
-                
+    return (is_checkmate, TURN)             
 
 selected = (0, 0)
 
@@ -167,7 +165,6 @@ board[6] = [60 for i in range(8)]
 board[7] = [50,40,30,20,10,30,40,50]
                 
 while running:
-    
     mouse_x, mouse_y = 0, 0
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -180,10 +177,12 @@ while running:
 
     screen.fill("white")
 
-    draw_grid(board, selected)
+    is_checkmate, TURN = draw_grid(board, selected)
 
     pygame.display.flip()
-
+    if is_checkmate:
+        checkmate(TURN)
+    
     clock.tick(60) 
 
 pygame.quit()
