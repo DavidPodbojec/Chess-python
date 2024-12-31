@@ -346,47 +346,6 @@ def black_possible_moves(board, selected_piece):
     elif piece == 61:
         black_pawn_move()
         
-    #check if pin
-    king_position = [0, 0]
-    for row in range(len(board)):
-        for col in range(len(board[row])):
-            if board[row][col] == 11:
-                king_position = [row, col]
-                
-    if is_check(board, king_position):
-        
-        new_possible_moves = []
-        for move in possible_moves:
-            temp_board = copy.deepcopy(board)
-            
-            temp_board = black_move(temp_board, selected_piece, (move[0], move[1]))
-
-            if piece == 11:
-                for king_move in possible_moves:
-                    if is_check(temp_board, king_move) == False:
-                        new_possible_moves.append(king_move)
-            
-            elif is_check(temp_board, king_position) == False:
-                
-                new_possible_moves.append(move)
-            
-        possible_moves = new_possible_moves
-    
-    moves_to_remove = []        
-    for piece_move in possible_moves:
-        temp_board = copy.deepcopy(board)
-            
-        temp_board = black_move(temp_board, selected_piece, (piece_move[0], piece_move[1]))
-        
-        if is_check(temp_board, king_position) == True and piece != 11:
-            moves_to_remove.append(piece_move)
-        elif piece == 11:
-            if is_check(temp_board, piece_move) == True:
-                moves_to_remove.append(piece_move)
-            
-    for move in moves_to_remove:
-        possible_moves.remove(move)
-        
     return possible_moves
         
     
