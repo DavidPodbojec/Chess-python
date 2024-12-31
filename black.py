@@ -370,9 +370,26 @@ def black_possible_moves(board, selected_piece):
                 
                 new_possible_moves.append(move)
             
-        return new_possible_moves
+        possible_moves = new_possible_moves
+    
+    moves_to_remove = []        
+    for piece_move in possible_moves:
+        temp_board = copy.deepcopy(board)
+            
+        temp_board = black_move(temp_board, selected_piece, (piece_move[0], piece_move[1]))
+        
+        if is_check(temp_board, king_position) == True and piece != 11:
+            moves_to_remove.append(piece_move)
+        elif piece == 11:
+            if is_check(temp_board, piece_move) == True:
+                moves_to_remove.append(piece_move)
+            
+    for move in moves_to_remove:
+        possible_moves.remove(move)
         
     return possible_moves
+        
+    
 
 def black_move(board, selected_piece, selected_square):
     #switch the square of piece with the selected square
