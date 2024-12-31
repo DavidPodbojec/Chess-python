@@ -1,5 +1,5 @@
 import pygame
-from calculate import calculate, move
+from calculate import calculate, move, white_is_checkmate, black_is_checkmate
 
 pygame.init()
 
@@ -44,6 +44,20 @@ possible_moves = []
 
 is_piece_selected = False
 
+def checkmate(turn):
+    font_size = 64
+    font = pygame.font.SysFont(None, font_size)
+    text = "WHITE lost" if turn == WHITE_TURN else "BLACK lost"
+    text_surface = font.render(text, True, BLACK)
+    text_rect = text_surface.get_rect(center=(WINDOW_SIZE // 2, WINDOW_SIZE // 2))
+
+    screen.fill(WHITE)
+    screen.blit(text_surface, text_rect)
+    pygame.display.flip()
+    pygame.time.wait(3000)
+    pygame.quit()        
+    
+
 def draw_grid(board, selected):
     global possible_moves
     global is_piece_selected
@@ -68,6 +82,7 @@ def draw_grid(board, selected):
                 if piece % 10 == TURN:
                     selected_piece = (row, col)
                     possible_moves = calculate(board, selected_piece)
+                    
                     is_piece_selected = True
                     
                     if color == WHITE:
@@ -91,6 +106,26 @@ def draw_grid(board, selected):
                             TURN = 1
                         else:
                             TURN = 0
+                            
+                        is_checkmate = False
+                        
+                        black_king_position = [0, 0]
+                        white_king_position = [0, 0]
+                        for row in range(len(board)):
+                            for col in range(len(board[row])):
+                                if board[row][col] == 11:
+                                    black_king_position = [row, col]
+                                if board[row][col] == 10:
+                                    white_king_position = [row, col]
+                        
+                        if black_is_checkmate(board, black_king_position):
+                            is_checkmate = True 
+
+                        if white_is_checkmate(board, white_king_position):
+                            is_checkmate = True
+                            
+                        if is_checkmate:
+                            checkmate(TURN)
                             
                         is_piece_selected = False   
             

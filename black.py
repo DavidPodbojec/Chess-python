@@ -1,6 +1,3 @@
-from black_king import is_check
-import copy
-
 def black_possible_moves(board, selected_piece):
     possible_moves = []
     
