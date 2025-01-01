@@ -3,6 +3,9 @@ rook2_moved = 0
 king_moved = 0
 
 def black_possible_moves(board, selected_piece):
+    global rook1_moved 
+    global rook2_moved
+    global king_moved
     possible_moves = []
     
     def black_pawn_move():
@@ -328,6 +331,26 @@ def black_possible_moves(board, selected_piece):
         #up right
         if selected_piece[0] != 0 and selected_piece[1] != 7 and board[selected_piece[0]-1][selected_piece[1]+1] % 10 == 0:
             possible_moves.append([selected_piece[0]-1, selected_piece[1]+1])
+            
+        #castle left
+        if king_moved == 0 and rook1_moved == 0:
+            castle = True
+            for i in range(1, 4):
+                if board[selected_piece[0]][selected_piece[1]-i] != 0:
+                    castle = False 
+
+            if castle:
+                possible_moves.append([selected_piece[0], selected_piece[1]-2])
+                
+        #castle right
+        if king_moved == 0 and rook2_moved == 0:
+            castle = True
+            for i in range(1, 3):
+                if board[selected_piece[0]][selected_piece[1]+i] != 0:
+                    castle = False
+
+            if castle:
+                possible_moves.append([selected_piece[0], selected_piece[1]+2])
     
 
     piece = board[selected_piece[0]][selected_piece[1]]
@@ -352,8 +375,44 @@ def black_possible_moves(board, selected_piece):
     
 
 def black_move(board, selected_piece, selected_square):
-    #switch the square of piece with the selected square
+    
     piece = board[selected_piece[0]][selected_piece[1]]
+    
+    board[selected_piece[0]][selected_piece[1]] = 0
+    board[selected_square[0]][selected_square[1]] = piece
+    return board
+
+def black_real_move(board, selected_piece, selected_square):
+    global rook2_moved
+    global rook1_moved
+    global king_moved
+    
+    piece = board[selected_piece[0]][selected_piece[1]]
+
+    if piece == 11:
+        
+        #improve caste so that it can't be done when a piece is checked
+        if king_moved == 0 and selected_square == (0, 2) and rook1_moved == 0:
+            king_moved = 1
+            rook1_moved = 1
+            board[0][0] = 0
+            board[0][3] = 51
+
+          
+        if king_moved == 0 and selected_square == (0, 6) and rook2_moved == 0:
+            
+            king_moved = 1
+            rook2_moved = 1
+            board[0][7] = 0
+            board[0][5] = 51
+    
+    if piece == 51 and selected_piece == (0, 0):
+        rook1_moved = 1
+    
+    if piece == 51 and selected_piece == (0, 7):
+        rook2_moved = 1
+        
+    
     
     board[selected_piece[0]][selected_piece[1]] = 0
     board[selected_square[0]][selected_square[1]] = piece

@@ -347,7 +347,7 @@ def white_possible_moves(board, selected_piece):
         if king_moved == 0 and rook2_moved == 0:
             castle = True
             for i in range(1, 3):
-                print(i)
+                
                 if board[selected_piece[0]][selected_piece[1]+i] != 0:
                     castle = False 
                     

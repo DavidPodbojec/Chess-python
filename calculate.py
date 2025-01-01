@@ -1,5 +1,5 @@
 from white import white_possible_moves, white_move, white_real_move
-from black import black_possible_moves, black_move
+from black import black_possible_moves, black_move, black_real_move
 import copy
 
 def black_is_checkmate(board, king_position):
@@ -220,6 +220,6 @@ def move(board, selected_piece, selected_square, turn):
     if turn % 10 == 0:
         white_real_move(board, selected_piece, selected_square)
     else:
-        black_move(board, selected_piece, selected_square)
+        black_real_move(board, selected_piece, selected_square)
         
     return board
