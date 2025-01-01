@@ -1,3 +1,7 @@
+rook1_moved = 0
+rook2_moved = 0
+king_moved = 0
+
 def black_possible_moves(board, selected_piece):
     possible_moves = []
     

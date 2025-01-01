@@ -1,4 +1,12 @@
+rook1_moved = 0
+rook2_moved = 0
+king_moved = 0
+
 def white_possible_moves(board, selected_piece):
+    global rook1_moved
+    global rook2_moved
+    global king_moved
+    
     possible_moves = []
     
     def white_pawn_move():
@@ -323,6 +331,10 @@ def white_possible_moves(board, selected_piece):
         #up right
         if selected_piece[0] != 0 and selected_piece[1] != 7 and (board[selected_piece[0]-1][selected_piece[1]+1] % 10 != 0 or board[selected_piece[0]-1][selected_piece[1]+1] == 0):
             possible_moves.append([selected_piece[0]-1, selected_piece[1]+1])
+            
+        #castle left
+        if king_moved == 0 and rook1_moved == 0:
+            possible_moves.append([selected_piece[0], selected_piece[1]-3])
                
     piece = board[selected_piece[0]][selected_piece[1]]
     
@@ -342,8 +354,27 @@ def white_possible_moves(board, selected_piece):
     return possible_moves
 
 def white_move(board, selected_piece, selected_square):
-    #change the square of selected piece with selected square
+    global rook2_moved
+    global rook1_moved
+    global king_moved
+    
     piece = board[selected_piece[0]][selected_piece[1]]
+
+    if piece == 10:
+        if king_moved == 0 and selected_square == (7, 2) and rook1_moved == 0:
+            king_moved = 1
+            rook1_moved = 1
+            board[7][0] = 0
+            board[7][2] = piece
+            board[7][3] = 50
+    
+    if piece == 50 and selected_piece == (7, 0):
+        rook1_moved = 1
+    
+    if piece == 50 and selected_piece == (7, 7):
+        rook2_moved = 1
+        
+    
     
     board[selected_piece[0]][selected_piece[1]] = 0
     board[selected_square[0]][selected_square[1]] = piece
