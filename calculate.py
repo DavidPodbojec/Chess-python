@@ -1,4 +1,4 @@
-from white import white_possible_moves, white_move
+from white import white_possible_moves, white_move, white_real_move
 from black import black_possible_moves, black_move
 import copy
 
@@ -218,7 +218,7 @@ def calculate(board, selected_piece):
 
 def move(board, selected_piece, selected_square, turn):
     if turn % 10 == 0:
-        white_move(board, selected_piece, selected_square)
+        white_real_move(board, selected_piece, selected_square)
     else:
         black_move(board, selected_piece, selected_square)
         

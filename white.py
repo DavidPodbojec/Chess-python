@@ -334,7 +334,14 @@ def white_possible_moves(board, selected_piece):
             
         #castle left
         if king_moved == 0 and rook1_moved == 0:
-            possible_moves.append([selected_piece[0], selected_piece[1]-3])
+            castle = True
+            for i in range(1, 4):
+                
+                if board[selected_piece[0]][selected_piece[1]-i] != 0:
+                    castle = False 
+                    
+            if castle:
+                possible_moves.append([selected_piece[0], selected_piece[1]-2])
                
     piece = board[selected_piece[0]][selected_piece[1]]
     
@@ -354,6 +361,13 @@ def white_possible_moves(board, selected_piece):
     return possible_moves
 
 def white_move(board, selected_piece, selected_square):
+    piece = board[selected_piece[0]][selected_piece[1]]
+        
+    board[selected_piece[0]][selected_piece[1]] = 0
+    board[selected_square[0]][selected_square[1]] = piece
+    return board
+
+def white_real_move(board, selected_piece, selected_square):
     global rook2_moved
     global rook1_moved
     global king_moved
