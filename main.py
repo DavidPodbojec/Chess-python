@@ -164,7 +164,7 @@ board[1] = [61 for i in range(8)]
 board[6] = [60 for i in range(8)]
 board[7] = [50,40,30,20,10,30,40,50]
                 
-while running:
+while running:   
     mouse_x, mouse_y = 0, 0
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -179,9 +179,12 @@ while running:
 
     is_checkmate, TURN = draw_grid(board, selected)
 
-    pygame.display.flip()
     if is_checkmate:
+        draw_grid(board, (0,0))
         checkmate(TURN)
+
+    pygame.display.flip()
+    
     
     clock.tick(60) 
 
