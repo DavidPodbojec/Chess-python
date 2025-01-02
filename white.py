@@ -1,6 +1,4 @@
-rook1_moved = 0
-rook2_moved = 0
-king_moved = 0
+import initial_state
 
 def white_possible_moves(board, selected_piece):
     global rook1_moved
@@ -333,7 +331,7 @@ def white_possible_moves(board, selected_piece):
             possible_moves.append([selected_piece[0]-1, selected_piece[1]+1])
             
         #castle left
-        if king_moved == 0 and rook1_moved == 0:
+        if initial_state.white_king_moved == 0 and initial_state.white_rook1_moved == 0:
             castle = True
             for i in range(1, 4):
                 
@@ -344,7 +342,7 @@ def white_possible_moves(board, selected_piece):
                 possible_moves.append([selected_piece[0], selected_piece[1]-2])
                 
         #castle right
-        if king_moved == 0 and rook2_moved == 0:
+        if initial_state.white_king_moved == 0 and initial_state.white_rook2_moved == 0:
             castle = True
             for i in range(1, 3):
                 
@@ -371,45 +369,3 @@ def white_possible_moves(board, selected_piece):
     
     return possible_moves
 
-def white_move(board, selected_piece, selected_square):
-    piece = board[selected_piece[0]][selected_piece[1]]
-        
-    board[selected_piece[0]][selected_piece[1]] = 0
-    board[selected_square[0]][selected_square[1]] = piece
-    return board
-
-def white_real_move(board, selected_piece, selected_square):
-    global rook2_moved
-    global rook1_moved
-    global king_moved
-    
-    piece = board[selected_piece[0]][selected_piece[1]]
-
-    if piece == 10:
-        
-        #improve caste so that it can't be done when a piece is checked
-        if king_moved == 0 and selected_square == (7, 2) and rook1_moved == 0:
-            king_moved = 1
-            rook1_moved = 1
-            board[7][0] = 0
-            board[7][3] = 50
-
-          
-        if king_moved == 0 and selected_square == (7, 6) and rook2_moved == 0:
-            
-            king_moved = 1
-            rook2_moved = 1
-            board[7][7] = 0
-            board[7][5] = 50
-    
-    if piece == 50 and selected_piece == (7, 0):
-        rook1_moved = 1
-    
-    if piece == 50 and selected_piece == (7, 7):
-        rook2_moved = 1
-        
-    
-    
-    board[selected_piece[0]][selected_piece[1]] = 0
-    board[selected_square[0]][selected_square[1]] = piece
-    return board
