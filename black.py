@@ -14,7 +14,7 @@ def black_possible_moves(board, selected_piece):
             possible_moves.append([selected_piece[0]+1, selected_piece[1]])
             
         #two moves up
-        if selected_piece[0] == 1 and board[selected_piece[0]+2][selected_piece[1]] == 0:
+        if selected_piece[0] == 1 and board[selected_piece[0]+2][selected_piece[1]] == 0 and board[selected_piece[0]+1][selected_piece[1]] == 0:
             possible_moves.append([selected_piece[0]+2, selected_piece[1]])
         
         #take right
