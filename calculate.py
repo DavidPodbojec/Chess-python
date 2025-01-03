@@ -1,5 +1,4 @@
-from white import white_possible_moves
-from black import black_possible_moves
+from possible_moves import white_possible_moves, black_possible_moves
 import copy
 import initial_state
 
@@ -327,3 +326,4 @@ def black_real_move(board, selected_piece, selected_square):
     board[selected_piece[0]][selected_piece[1]] = 0
     board[selected_square[0]][selected_square[1]] = piece
     return board
+
