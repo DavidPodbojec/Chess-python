@@ -220,6 +220,12 @@ def calculate(board, selected_piece):
 
         for move in moves_to_remove:
             possible_moves.remove(move)
+
+        if piece == 11 and [0, 2] in possible_moves and [0, 3] not in possible_moves:
+            possible_moves.remove([0, 2])
+            
+        if piece == 11 and [0, 6] in possible_moves and [0, 5] not in possible_moves:
+            possible_moves.remove([0, 6])
               
     return possible_moves
 
@@ -292,18 +298,23 @@ def black_real_move(board, selected_piece, selected_square):
         
         #improve caste so that it can't be done when a piece is checked
         if initial_state.black_king_moved == 0 and selected_square == (0, 2) and initial_state.black_rook1_moved == 0:
-            initial_state.black_king_moved = 1
-            initial_state.black_rook1_moved = 1
-            board[0][0] = 0
-            board[0][3] = 51
+            if black_is_check(board, [0, 2]) or black_is_check(board, [0, 3]) or black_is_check(board, [0, 4]):
+                pass
+            else:
+                initial_state.black_king_moved = 1
+                initial_state.black_rook1_moved = 1
+                board[0][0] = 0
+                board[0][3] = 51
 
           
         if initial_state.black_king_moved == 0 and selected_square == (0, 6) and initial_state.black_rook2_moved == 0:
-            
-            initial_state.black_king_moved = 1
-            initial_state.black_rook2_moved = 1
-            board[0][7] = 0
-            board[0][5] = 51
+            if black_is_check(board, [0, 6]) or black_is_check(board, [0, 5]) or black_is_check(board, [0, 4]):
+               pass
+            else:
+                initial_state.black_king_moved = 1
+                initial_state.black_rook2_moved = 1
+                board[0][7] = 0
+                board[0][5] = 51
     
     if piece == 51 and selected_piece == (0, 0):
         initial_state.black_rook1_moved = 1
