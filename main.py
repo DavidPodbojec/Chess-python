@@ -1,6 +1,7 @@
 import pygame
 import time
-from calculate import calculate, move, white_is_checkmate, black_is_checkmate
+from calculate import calculate, move
+from check import white_is_checkmate, black_is_checkmate
 
 pygame.init()
 
