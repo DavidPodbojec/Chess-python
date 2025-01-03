@@ -175,6 +175,9 @@ def calculate(board, selected_piece):
             
         if piece == 10 and [7, 2] in possible_moves and [7, 3] not in possible_moves:
             possible_moves.remove([7, 2])
+            
+        if piece == 10 and [7, 6] in possible_moves and [7, 5] not in possible_moves:
+            possible_moves.remove([7, 6])
         
 
     elif piece != 0:
@@ -252,11 +255,13 @@ def white_real_move(board, selected_piece, selected_square):
 
           
         if initial_state.white_king_moved == 0 and selected_square == (7, 6) and initial_state.white_rook2_moved == 0:
-            
-            initial_state.white_king_moved = 1
-            initial_state.white_rook2_moved = 1
-            board[7][7] = 0
-            board[7][5] = 50
+            if white_is_check(board, [7, 6]) or white_is_check(board, [7, 5]) or white_is_check(board, [7, 4]):
+                pass
+            else:
+                initial_state.white_king_moved = 1
+                initial_state.white_rook2_moved = 1
+                board[7][7] = 0
+                board[7][5] = 50
     
     if piece == 50 and selected_piece == (7, 0):
         initial_state.white_rook1_moved = 1
