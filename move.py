@@ -10,6 +10,10 @@ def white_real_move(board, selected_piece, selected_square):
     
     elif piece == 60:
         initial_state.white_pawn_2 = 0
+
+    if piece == 60 and initial_state.black_pawn_2 == 1 and (initial_state.black_pawn_pos[0]-1, initial_state.black_pawn_pos[1]) == (selected_square[0], selected_square[1]):
+        board[initial_state.black_pawn_pos[0]][initial_state.black_pawn_pos[1]] = 0
+        
     
     if piece == 10:
         
@@ -58,6 +62,9 @@ def black_real_move(board, selected_piece, selected_square):
         
     elif piece == 61:
         initial_state.black_pawn_2 = 0
+        
+    if piece == 61 and initial_state.white_pawn_2 == 1 and (initial_state.white_pawn_pos[0]+1, initial_state.white_pawn_pos[1]) == (selected_square[0], selected_square[1]):
+        board[initial_state.white_pawn_pos[0]][initial_state.white_pawn_pos[1]] = 0
         
 
     if piece == 11:
