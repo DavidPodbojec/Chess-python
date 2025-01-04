@@ -4,6 +4,13 @@ from check import white_is_check, black_is_check
 def white_real_move(board, selected_piece, selected_square):
     piece = board[selected_piece[0]][selected_piece[1]]
 
+    if piece == 60 and selected_piece[0] == 6 and selected_square[0] == 4:
+        initial_state.white_pawn_2 = 1
+        initial_state.white_pawn_pos = selected_square
+    
+    elif piece == 60:
+        initial_state.white_pawn_2 = 0
+    
     if piece == 10:
         
         #improve caste so that it can't be done when a piece is checked
@@ -44,6 +51,14 @@ def white_real_move(board, selected_piece, selected_square):
 def black_real_move(board, selected_piece, selected_square):
     
     piece = board[selected_piece[0]][selected_piece[1]]
+    
+    if piece == 61 and selected_piece[0] == 1 and selected_square[0] == 3:
+        initial_state.black_pawn_2 = 1
+        initial_state.black_pawn_pos = selected_square
+        
+    elif piece == 61:
+        initial_state.black_pawn_2 = 0
+        
 
     if piece == 11:
         
