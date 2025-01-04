@@ -17,7 +17,7 @@ def white_real_move(board, selected_piece, selected_square):
                 board[7][3] = 50
 
           
-        if initial_state.white_king_moved == 0 and selected_square == (7, 6) and initial_state.white_rook2_moved == 0:
+        elif initial_state.white_king_moved == 0 and selected_square == (7, 6) and initial_state.white_rook2_moved == 0:
             if white_is_check(board, [7, 6]) or white_is_check(board, [7, 5]) or white_is_check(board, [7, 4]):
                 pass
             else:
@@ -25,6 +25,9 @@ def white_real_move(board, selected_piece, selected_square):
                 initial_state.white_rook2_moved = 1
                 board[7][7] = 0
                 board[7][5] = 50
+                
+        else:
+            initial_state.white_king_moved = 1
     
     if piece == 50 and selected_piece == (7, 0):
         initial_state.white_rook1_moved = 1
@@ -55,7 +58,7 @@ def black_real_move(board, selected_piece, selected_square):
                 board[0][3] = 51
 
           
-        if initial_state.black_king_moved == 0 and selected_square == (0, 6) and initial_state.black_rook2_moved == 0:
+        elif initial_state.black_king_moved == 0 and selected_square == (0, 6) and initial_state.black_rook2_moved == 0:
             if black_is_check(board, [0, 6]) or black_is_check(board, [0, 5]) or black_is_check(board, [0, 4]):
                pass
             else:
@@ -63,6 +66,8 @@ def black_real_move(board, selected_piece, selected_square):
                 initial_state.black_rook2_moved = 1
                 board[0][7] = 0
                 board[0][5] = 51
+        else:
+            initial_state.black_king_moved = 1
     
     if piece == 51 and selected_piece == (0, 0):
         initial_state.black_rook1_moved = 1

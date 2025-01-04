@@ -34,6 +34,7 @@ def black_is_checkmate(board, king_position):
                         elif black_is_check(temp_board, king_position) == False:
                             new_possible_moves.append(move)
 
+                
 
                     possible_moves = new_possible_moves
 
@@ -55,7 +56,7 @@ def black_is_checkmate(board, king_position):
                     for move in possible_moves:
                         moves.append(move)
     
-    if moves == []:
+    if moves == [] and black_is_check(board, king_position):
         return True
     else:
         return False
@@ -107,7 +108,7 @@ def white_is_checkmate(board, king_position):
                     for move in possible_moves:
                         moves.append(move)
     
-    if moves == []:
+    if moves == [] and white_is_check(board, king_position):
         return True
     else:
         return False

@@ -2,6 +2,7 @@ import pygame
 import time
 from calculate import calculate, move
 from check import white_is_checkmate, black_is_checkmate
+from draw import black_is_draw, white_is_draw
 
 pygame.init()
 
@@ -55,8 +56,20 @@ def checkmate(turn):
     
     screen.blit(text_surface, text_rect)
     pygame.display.flip()
-    pygame.time.wait(3000)
+    pygame.time.wait(2000)
     pygame.quit()        
+    
+def draw():
+    font_size = 64
+    font = pygame.font.SysFont(None, font_size)
+    text = "DRAW"
+    text_surface = font.render(text, True, (0, 0, 0))
+    text_rect = text_surface.get_rect(center=(WINDOW_SIZE // 2, WINDOW_SIZE // 2))
+    
+    screen.blit(text_surface, text_rect)
+    pygame.display.flip()
+    pygame.time.wait(2000)
+    pygame.quit() 
     
 
 def draw_grid(board, selected):
@@ -65,8 +78,10 @@ def draw_grid(board, selected):
     global selected_piece
     global TURN
     global is_checkmate
+    global is_draw
     
     is_checkmate = False
+    is_draw = False
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
             x = col * CELL
@@ -121,11 +136,17 @@ def draw_grid(board, selected):
                                 if board[row][col] == 10:
                                     white_king_position = [row, col]
                         
-                        if black_is_checkmate(board, black_king_position):
-                            is_checkmate = True 
-
-                        if white_is_checkmate(board, white_king_position):
-                            is_checkmate = True
+                        if TURN == 1:
+                            if black_is_checkmate(board, black_king_position):
+                                is_checkmate = True 
+                            if black_is_draw(board, black_king_position):
+                                is_draw = True
+                        
+                        else:
+                            if white_is_checkmate(board, white_king_position):
+                                is_checkmate = True
+                            if white_is_draw(board, white_king_position):
+                                is_draw = True
                             
                         is_piece_selected = False   
             
@@ -153,7 +174,7 @@ def draw_grid(board, selected):
                 else:
                     pygame.draw.circle(screen, color, ((col * CELL)+(CELL/2), (row * CELL)+(CELL/2)), 20)          
                     
-    return (is_checkmate, TURN)             
+    return (is_checkmate, is_draw,  TURN)             
 
 selected = (0, 0)
 
@@ -178,11 +199,15 @@ while running:
 
     screen.fill("white")
 
-    is_checkmate, TURN = draw_grid(board, selected)
+    is_checkmate, is_draw, TURN = draw_grid(board, selected)
 
     if is_checkmate:
         draw_grid(board, (0,0))
         checkmate(TURN)
+        
+    if is_draw:
+        draw_grid(board, (0, 0))
+        draw()
 
     pygame.display.flip()
     

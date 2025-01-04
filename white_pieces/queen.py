@@ -41,7 +41,7 @@ def white_queen_move(board, selected_piece, possible_moves):
     for i in range(1, 8-selected_piece[1]):
         
         if board[selected_piece[0]][selected_piece[1]+i] % 10 != 0 and board[selected_piece[0]][selected_piece[1]+i] != 0:
-            possible_moves.append([selected_piece[0], selected_piece[1]-+i])
+            possible_moves.append([selected_piece[0], selected_piece[1]+i])
             break
         elif board[selected_piece[0]][selected_piece[1]+i] == 0:
             possible_moves.append([selected_piece[0], selected_piece[1]+i])
