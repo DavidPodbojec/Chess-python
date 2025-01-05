@@ -1,4 +1,5 @@
 import initial_state
+from promotion import promotion_popup
 from check import white_is_check, black_is_check
 
 def white_real_move(board, selected_piece, selected_square):
@@ -13,6 +14,12 @@ def white_real_move(board, selected_piece, selected_square):
 
     if piece == 60 and initial_state.black_pawn_2 == 1 and (initial_state.black_pawn_pos[0]-1, initial_state.black_pawn_pos[1]) == (selected_square[0], selected_square[1]):
         board[initial_state.black_pawn_pos[0]][initial_state.black_pawn_pos[1]] = 0
+        
+    if piece == 60 and selected_square[0] == 0:
+        promotion_piece = promotion_popup(0)
+        board[selected_piece[0]][selected_piece[1]] = 0
+        board[selected_square[0]][selected_square[1]] = promotion_piece
+        return board
         
     
     if piece == 10:
@@ -65,6 +72,12 @@ def black_real_move(board, selected_piece, selected_square):
         
     if piece == 61 and initial_state.white_pawn_2 == 1 and (initial_state.white_pawn_pos[0]+1, initial_state.white_pawn_pos[1]) == (selected_square[0], selected_square[1]):
         board[initial_state.white_pawn_pos[0]][initial_state.white_pawn_pos[1]] = 0
+
+    if piece == 61 and selected_square[0] == 7:
+        promotion_piece = promotion_popup(1)
+        board[selected_piece[0]][selected_piece[1]] = 0
+        board[selected_square[0]][selected_square[1]] = promotion_piece
+        return board
         
 
     if piece == 11:

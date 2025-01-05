@@ -1,6 +1,10 @@
 import initial_state
 
 def black_pawn_move(board, selected_piece, possible_moves):
+    
+    #promotion
+    if selected_piece[0] == 7:
+        return []
     #pawn one move up
     if board[selected_piece[0]+1][selected_piece[1]] == 0:
         possible_moves.append([selected_piece[0]+1, selected_piece[1]])
