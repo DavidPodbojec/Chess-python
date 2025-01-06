@@ -1,45 +1,12 @@
 import pygame
 import time
+from config import piece_images, WHITE, BLACK, WHITE_TURN, BLACK_TURN, WINDOW_SIZE, CELL, screen, GRID_SIZE, SHADED_WHITE, SHADED_BLACK, clock
 from calculate import calculate, move
 from check import white_is_checkmate, black_is_checkmate
 from draw import black_is_draw, white_is_draw
 
+
 pygame.init()
-
-WINDOW_SIZE = 800
-GRID_SIZE = 8
-CELL = WINDOW_SIZE / GRID_SIZE
-
-WHITE = (240, 217, 181)
-BLACK = (181, 136, 99)
-
-SHADED_WHITE = (172, 156, 130)
-SHADED_BLACK = (130, 98, 71)
-screen = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
-clock = pygame.time.Clock()
-running = True
-
-WHITE_TURN = 0
-BLACK_TURN = 1
-
-TURN = WHITE_TURN
-
-
-piece_images = {
-    10: pygame.image.load("images/white_king.png"),
-    20: pygame.image.load("images/white_queen.png"),
-    30: pygame.image.load("images/white_bishop.png"),
-    40: pygame.image.load("images/white_knight.png"),
-    50: pygame.image.load("images/white_rook.png"),
-    60: pygame.image.load("images/white_pawn.png"),
-     
-    11: pygame.image.load("images/black_king.png"),
-    21: pygame.image.load("images/black_queen.png"),
-    31: pygame.image.load("images/black_bishop.png"),
-    41: pygame.image.load("images/black_knight.png"),
-    51: pygame.image.load("images/black_rook.png"),
-    61: pygame.image.load("images/black_pawn.png")
-}
 
 selected_piece = (0, 0)
 selected_square = (0, 0)
@@ -185,6 +152,10 @@ board[1] = [61 for i in range(8)]
 
 board[6] = [60 for i in range(8)]
 board[7] = [50,40,30,20,10,30,40,50]
+
+running = True
+
+TURN = WHITE_TURN
                 
 while running:   
     mouse_x, mouse_y = 0, 0

@@ -16,7 +16,7 @@ def white_real_move(board, selected_piece, selected_square):
         board[initial_state.black_pawn_pos[0]][initial_state.black_pawn_pos[1]] = 0
         
     if piece == 60 and selected_square[0] == 0:
-        promotion_piece = promotion_popup(0)
+        promotion_piece = promotion_popup(0, board)
         board[selected_piece[0]][selected_piece[1]] = 0
         board[selected_square[0]][selected_square[1]] = promotion_piece
         return board
@@ -74,7 +74,7 @@ def black_real_move(board, selected_piece, selected_square):
         board[initial_state.white_pawn_pos[0]][initial_state.white_pawn_pos[1]] = 0
 
     if piece == 61 and selected_square[0] == 7:
-        promotion_piece = promotion_popup(1)
+        promotion_piece = promotion_popup(1, board)
         board[selected_piece[0]][selected_piece[1]] = 0
         board[selected_square[0]][selected_square[1]] = promotion_piece
         return board
