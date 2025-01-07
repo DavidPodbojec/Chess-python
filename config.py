@@ -30,5 +30,3 @@ clock = pygame.time.Clock()
 
 WHITE_TURN = 0
 BLACK_TURN = 1
-
-TURN = WHITE_TURN

@@ -52,14 +52,15 @@ def calculate(board, selected_piece):
             elif piece == 10:
                 if white_is_check(temp_board, piece_move) == True:
                     moves_to_remove.append(piece_move)
-
+        print(possible_moves)
+        print(moves_to_remove)
         for move in moves_to_remove:
             possible_moves.remove(move)
             
-        if piece == 10 and [7, 2] in possible_moves and [7, 3] not in possible_moves:
+        if piece == 10 and [7, 2] in possible_moves and [7, 3] not in possible_moves and initial_state.white_king_moved == 0:
             possible_moves.remove([7, 2])
             
-        if piece == 10 and [7, 6] in possible_moves and [7, 5] not in possible_moves:
+        if piece == 10 and [7, 6] in possible_moves and [7, 5] not in possible_moves and initial_state.white_king_moved == 0:
             possible_moves.remove([7, 6])
         
 
@@ -104,10 +105,10 @@ def calculate(board, selected_piece):
         for move in moves_to_remove:
             possible_moves.remove(move)
 
-        if piece == 11 and [0, 2] in possible_moves and [0, 3] not in possible_moves:
+        if piece == 11 and [0, 2] in possible_moves and [0, 3] not in possible_moves and initial_state.black_king_moved == 0:
             possible_moves.remove([0, 2])
             
-        if piece == 11 and [0, 6] in possible_moves and [0, 5] not in possible_moves:
+        if piece == 11 and [0, 6] in possible_moves and [0, 5] not in possible_moves and initial_state.black_king_moved == 0:
             possible_moves.remove([0, 6])
               
     return possible_moves
