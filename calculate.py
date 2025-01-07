@@ -52,8 +52,7 @@ def calculate(board, selected_piece):
             elif piece == 10:
                 if white_is_check(temp_board, piece_move) == True:
                     moves_to_remove.append(piece_move)
-        print(possible_moves)
-        print(moves_to_remove)
+        
         for move in moves_to_remove:
             possible_moves.remove(move)
             
